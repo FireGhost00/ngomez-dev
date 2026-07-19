@@ -4,14 +4,8 @@ interface Props {
 }
 
 const { date } = Astro.props;
+// El prototipo muestra la fecha en formato ISO corto: 2026-07-02
+const iso = date.toISOString().slice(0, 10);
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
-</time>
+<time datetime={iso}>{iso}</time>

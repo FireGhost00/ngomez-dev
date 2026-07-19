@@ -1,0 +1,40 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+	<body>
+		<div class="rail l"></div><div class="rail r"></div>
+
+		<div class="spool">
+			<div class="wrap">
+				<a href="/" style="text-decoration:none"><b>ngomez</b>.dev</a>
+				<span class="sys">DESARROLLADOR AS400 · RPG · CL · DB2</span>
+				<nav>
+					<a href="/#perfil">Perfil</a>
+					<a href="/#trayectoria">Trayectoria</a>
+					<a href="/#formacion">Formación</a>
+					<a href="/#notas">Notas</a>
+					<a href="/#contacto">Contacto</a>
+				</nav>
+			</div>
+		</div>
+
+		<slot />
+
+		<footer class="wrap">
+			<span>ngomez.dev — Nelson Gómez</span><span>San Salvador, El Salvador</span>
+		</footer>
+	</body>
+</html>

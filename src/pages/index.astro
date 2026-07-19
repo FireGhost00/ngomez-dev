@@ -1,49 +1,178 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Base from '../layouts/Base.astro';
+import { readingTime } from '../utils/readingTime';
+
+const notas = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<main id="home">
+		<header class="hero">
+			<div class="wrap">
+				<p class="stamp"><i></i> San Salvador, El Salvador · desde 2019 en producción</p>
+				<h1 class="name">Nelson <em>Gómez</em></h1>
+				<p class="role">
+					Analista programador RPG · IBM i (AS/400) · Docker, Node.js y fundamentos Cloud
+				</p>
+				<p class="lede">
+					Trabajo en sistemas IBM i: análisis, mantenimiento y modernización de aplicaciones en RPG,
+					CL y DB2. Actualmente en <strong>mantenimiento aeronáutico</strong>.
+				</p>
+				<div class="stack">
+					<span class="key">IBM i / AS400</span><span class="key">RPG IV</span><span class="key"
+						>CL</span
+					><span class="key">DB2</span>
+					<span>SQL</span><span>Java</span><span>Diseño de pantallas</span><span>Docker</span><span
+						>Node.js</span
+					><span>Cloud</span><span>Scrum · SDPC</span>
+				</div>
+			</div>
+		</header>
+
+		<section id="perfil">
+			<div class="wrap">
+				<div class="shead"><h2>En qué ayudo</h2><span class="tag">tres frentes</span></div>
+				<div class="cards">
+					<article>
+						<p class="k">01 — ANÁLISIS</p>
+						<h3>Documentar sistemas sin documentación</h3>
+						<p>Leo programas en RPG y CL y describo el proceso de negocio que implementan.</p>
+					</article>
+					<article>
+						<p class="k">02 — MANTENIMIENTO</p>
+						<h3>Correcciones y requerimientos</h3>
+						<p>Atiendo incidencias y cambios en RPG, CL y DB2 sobre sistemas en producción.</p>
+					</article>
+					<article>
+						<p class="k">03 — MODERNIZACIÓN</p>
+						<h3>RPG free-format, SQL y APIs</h3>
+						<p>
+							Convierto a free-format, expongo datos con SQL services y APIs REST, e integro el IBM i
+							con otros sistemas.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="trayectoria">
+			<div class="wrap">
+				<div class="shead"><h2>Trayectoria</h2><span class="tag">2019 — hoy</span></div>
+				<div class="track">
+					<div class="row">
+						<span class="yr">nov 2023 — hoy<br /><small style="opacity:.55">Híbrido</small></span>
+						<div>
+							<h3>Analista programador RPG · Aeroman</h3>
+							<p>
+								Análisis, diseño de pantallas y programación en RPG y CL sobre IBM i, para procesos
+								de mantenimiento aeronáutico.
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<span class="yr"
+							>abr 2022 — ene 2024<br /><small style="opacity:.55">San Salvador</small></span
+						>
+						<div>
+							<h3>Programador RPG · OE Internacional</h3>
+							<p>Desarrollo y soporte de aplicaciones de negocio en RPG y DB2.</p>
+						</div>
+					</div>
+					<div class="row">
+						<span class="yr"
+							>oct 2019 — abr 2022<br /><small style="opacity:.55">El Salvador</small></span
+						>
+						<div>
+							<h3>Programador RPG y Java · Latin American BYTE</h3>
+							<p>Desarrollo en RPG IV y Java para clientes de distintos sectores.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="formacion">
+			<div class="wrap">
+				<div class="shead"><h2>Formación</h2><span class="tag">y certificaciones</span></div>
+				<div class="cards">
+					<article>
+						<p class="k">MAESTRÍA · 2024–2026</p>
+						<h3>Gestión Estratégica de TI</h3>
+						<p>
+							Universidad Francisco Gavidia. En curso. El puente entre decidir tecnología y
+							justificarla frente al negocio.
+						</p>
+					</article>
+					<article>
+						<p class="k">INGENIERÍA · 2016–2022</p>
+						<h3>Sistemas y Computación</h3>
+						<p>Universidad Tecnológica de El Salvador.</p>
+					</article>
+					<article>
+						<p class="k">CERTIPROF</p>
+						<h3>SDPC y SMPC</h3>
+						<p>
+							Scrum Developer Professional Certification (2024–2027) y Scrum Master Professional
+							Certificate (2024).
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="notas">
+			<div class="wrap">
+				<div class="shead"><h2>Notas</h2><span class="tag">bitácora técnica</span></div>
+				<div class="report">
+					<div class="rhead">
+						<span>Fecha</span><span>Tema</span><span>Título</span><span style="text-align:right"
+							>Min</span
+						>
+					</div>
+					{
+						notas.map((nota) => (
+							<a class="note" href={`/blog/${nota.id}/`}>
+								<span class="d">
+									<FormattedDate date={nota.data.pubDate} />
+								</span>
+								<span class="t">{nota.data.tema}</span>
+								<div>
+									<h3>{nota.data.title}</h3>
+									<p>{nota.data.description}</p>
+								</div>
+								<span class="m">{readingTime(nota.body ?? '')}</span>
+							</a>
+						))
+					}
+				</div>
+				<a class="more" href="/blog">Ver todas las notas →</a>
+			</div>
+		</section>
+
+		<section id="contacto">
+			<div class="wrap">
+				<div class="shead"><h2>Contacto</h2><span class="tag">respondo en 48 h</span></div>
+				<div class="contact">
+					<p>Escribime si necesitás mantener, documentar o modernizar un sistema en IBM i.</p>
+					<ul class="links">
+						<li><a href="mailto:nelson@ngomez.dev">Correo <span>nelson@ngomez.dev</span></a></li>
+						<li>
+							<a
+								href="https://www.linkedin.com/in/nelson-gomez-a730bb167/"
+								target="_blank"
+								rel="noopener">LinkedIn <span>/in/nelson-gomez</span></a
+							>
+						</li>
+						<li><a href="#">GitHub <span>@ngomez</span></a></li>
+						<li><a href="#">Currículum <span>PDF · 1 página</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</main>
+</Base>
